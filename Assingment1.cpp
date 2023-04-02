@@ -1,5 +1,8 @@
 #include <iostream>
-
+#include <cstdlib>
+#include <ctime>
+#include <conio.h>
+#include <iomanip>
 
 using namespace std;
 
@@ -44,6 +47,38 @@ void initializeBoard() {
     
     board[row1][col1] = (rand() % 2 + 1) * 2;  // randomly set the value to 2 or 4
     board[row2][col2] = (rand() % 2 + 1) * 2;  // randomly set the value to 2 or 4, but different from the first tile
+}
+
+void upmove() {
+    bool moved = false;
+    for (int j = 0; j < COL; j++) {
+        int firstRow = 0;
+        for (int i = 1; i < ROW; i++) {
+            if (board[i][j] != 0) {
+                if (board[firstRow][j] == 0 ) {
+                    board[firstRow][j] += board[i][j];
+                    board[i][j] = 0;
+                    moved = true;
+                }
+                else if (board[firstRow][j] == board[i][j]) {
+                    board[firstRow][j] += board[i][j];
+                    board[i][j] = 0;
+                    moved = true;
+                    score += board[firstRow][j];
+                } else {
+                    firstRow++;
+                    board[firstRow][j] = board[i][j];
+                    if (i != firstRow) {
+                        board[i][j] = 0;
+                        moved = true;
+                    }
+                }
+            }
+        }
+    }
+    if (moved) {
+        addPiece();
+    }
 }
 
 

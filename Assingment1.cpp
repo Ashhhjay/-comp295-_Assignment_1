@@ -178,6 +178,26 @@ void leftmove() {
 }
 
 
+bool check_game_over() {
+    for (int i = 0; i < ROW-1; i++) {
+        for (int j = 0; j < COL-1; j++) {
+            if (board[i][j] == 0 || board[i][j+1] == 0) {
+                return false;
+            }
+            if (board[i][j] == board[i+1][j])
+                return false;
+            if (board[i][j] == board[i][j+1])
+                return false;
+            if (board[i][j] == 2048 || board[i+1][j] == 2048 || board[i][j+1] == 2048 || board[i+1][j+1] == 2048) {
+                cout << "Congratulations! You won!" << endl;
+                return true;
+            }
+        }
+    }
+    return true;
+}
+
+
 int main(){
 	initializeBoard();
 	printboard();
@@ -192,6 +212,20 @@ int main(){
             leftmove();
     	} else if (move == 'd' || move == 'D') {
             rightmove();
+        } else if (move == 27) {
+            cout << "Game over!" << endl;
+            break;
+        } else {
+            cout << "Invalid move!" << endl;
+            continue;
+        }
+        system("cls");
+        printBoard();
+        
+        // check for game over
+        if (check_game_over()) {
+            cout << "Game over!" << score << endl;
+            break;
         }
     }
     return 0;

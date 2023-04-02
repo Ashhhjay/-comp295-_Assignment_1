@@ -49,6 +49,20 @@ void initializeBoard() {
     board[row2][col2] = (rand() % 2 + 1) * 2;  // randomly set the value to 2 or 4, but different from the first tile
 }
 
+void addPiece() {
+    // generate a random position
+    int r, c;
+    do {
+        r = rand() % 4;
+        c = rand() % 4;
+    } while (board[r][c] != 0);
+    // generate a random value (2 or 4)
+    int value = (rand() % 2 + 1) * 2;
+    // set the tile value
+    board[r][c] = value;
+}
+
+
 void upmove() {
     bool moved = false;
     for (int j = 0; j < COL; j++) {
@@ -198,19 +212,19 @@ bool check_game_over() {
 }
 
 
-int main(){
-	initializeBoard();
-	printboard();
-	char move;
+void playGame(){
+    initializeBoard();
+    printBoard();
+    char move;
     while (1) {
         move = getch();
         if (move == 'w' || move == 'W') {
             upmove();
         } else if (move == 's' || move == 'S') {
             downmove();
-    	} else if (move == 'a' || move == 'A') {
+        } else if (move == 'a' || move == 'A') {
             leftmove();
-    	} else if (move == 'd' || move == 'D') {
+        } else if (move == 'd' || move == 'D') {
             rightmove();
         } else if (move == 27) {
             cout << "Game over!" << endl;
@@ -220,13 +234,34 @@ int main(){
             continue;
         }
         system("cls");
-        printBoard();
-        
+        printBoard();                 
+        }
         // check for game over
         if (check_game_over()) {
             cout << "Game over!" << score << endl;
             break;
         }
     }
+}
+
+
+int main(){
+	cout << "*************************************************Welcome to the game****************************************************\n";
+    char choice;
+    while (true) {
+    	cout << "(a) Play Game\n";
+    	cout << "(b) Quit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
+        if (choice == 'a' || choice == 'A') {
+            playGame();
+            break;
+        } else if (choice == 'b' || choice == 'B') {
+            cout << "Goodbye!\n";
+            exit(0);
+        } else {
+	        cout << "Invalid input, please enter 'a' or 'b'.\n";
+	   	}
+	}
     return 0;
 }

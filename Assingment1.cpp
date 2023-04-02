@@ -81,8 +81,49 @@ void upmove() {
     }
 }
 
+void downmove() {
+    bool moved = false;
+    for (int j = 0; j < COL; j++) {
+        int lastRow = ROW - 1;
+        for (int i = ROW - 2; i >= 0; i--) {
+            if (board[i][j] != 0) {
+                if (board[lastRow][j] == 0) {
+                    board[lastRow][j] += board[i][j];
+                    board[i][j] = 0;
+                    moved = true;
+                }
+                else if (board[lastRow][j] == board[i][j]) {
+                    board[lastRow][j] += board[i][j];
+                    board[i][j] = 0;
+                    moved = true;
+                    score += board[lastRow][j];
+                } else {
+                    lastRow--;
+                    board[lastRow][j] = board[i][j];
+                    if (i != lastRow) {
+                        board[i][j] = 0;
+                        moved = true;
+                    }
+                }
+            }
+        }
+    }
+    if (moved) {
+        addPiece();
+    }
+}
+
 
 int main(){
 	initializeBoard();
 	printboard();
+	char move;
+    while (1) {
+        move = getch();
+        if (move == 'w' || move == 'W') {
+            upmove();
+        } else if (move == 's' || move == 'S') {
+            downmove();
+    	}
+    }
 }

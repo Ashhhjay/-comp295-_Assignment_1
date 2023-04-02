@@ -29,8 +29,25 @@ void printBoard() {
         cout<<"\t\t\t\t\t";
         cout << "+------+------+------+------+" << endl;
     }
-
 }
+
+void initializeBoard() {
+    srand(time(NULL));
+    // add two random tiles to the board with different values
+    int row1, col1, row2, col2;
+    do {
+        row1 = rand() % ROW;
+        col1 = rand() % COL;
+        row2 = rand() % ROW;
+        col2 = rand() % COL;
+    } while (board[row1][col1] != 0 || board[row2][col2] != 0 || (row1 == row2 && col1 == col2));
+    
+    board[row1][col1] = (rand() % 2 + 1) * 2;  // randomly set the value to 2 or 4
+    board[row2][col2] = (rand() % 2 + 1) * 2;  // randomly set the value to 2 or 4, but different from the first tile
+}
+
+
 int main(){
+	initializeBoard();
 	printboard();
 }

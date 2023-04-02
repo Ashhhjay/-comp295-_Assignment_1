@@ -32,8 +32,8 @@ void printBoard() {
         cout<<"\t\t\t\t\t";
         cout << "+------+------+------+------+" << endl;
     }
-}
 
+}
 void initializeBoard() {
     srand(time(NULL));
     // add two random tiles to the board with different values
@@ -48,6 +48,7 @@ void initializeBoard() {
     board[row1][col1] = (rand() % 2 + 1) * 2;  // randomly set the value to 2 or 4
     board[row2][col2] = (rand() % 2 + 1) * 2;  // randomly set the value to 2 or 4, but different from the first tile
 }
+
 
 void clearBoard() {
     for (int i = 0; i < ROW; i++) {
@@ -70,7 +71,6 @@ void addPiece() {
     // set the tile value
     board[r][c] = value;
 }
-
 
 void upmove() {
     bool moved = false;
@@ -219,9 +219,8 @@ bool check_game_over() {
     }
     return true;
 }
-
-
 void playGame(){
+	system("cls");
     initializeBoard();
     printBoard();
     char move;
@@ -243,14 +242,16 @@ void playGame(){
             continue;
         }
         system("cls");
-        printBoard();                 
+        printBoard();
+        
         if (high_score < score) {
-            high_score = score;             
+            high_score = score;
+                    
         }
         // check for game over
         if (check_game_over()) {
-            cout << "Game over!" << score << endl;
-            if (score > high_score) {
+            cout << "Game over! Final score: " << score << endl;
+                if (score > high_score) {
                     high_score = score;
                     cout << "New high score: " << high_score << endl;
                 }
@@ -260,8 +261,10 @@ void playGame(){
 }
 
 
-int main(){
-	cout << "*************************************************Welcome to the game****************************************************\n";
+
+
+int main() {
+    cout << "*************************************************Welcome to the game****************************************************\n";
     char choice;
     while (true) {
     	cout << "(a) Play Game\n";
@@ -278,8 +281,8 @@ int main(){
 	        cout << "Invalid input, please enter 'a' or 'b'.\n";
 	   	}
 	}
-	
-	char askagain;
+    
+    char askagain;
     while (true) {
     	cout << "Play again? (y/n): ";
         cin >> askagain;
@@ -298,5 +301,7 @@ int main(){
             continue;
         }
     }
+
     return 0;
 }
+

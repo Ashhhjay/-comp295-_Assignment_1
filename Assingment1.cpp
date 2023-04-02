@@ -49,6 +49,15 @@ void initializeBoard() {
     board[row2][col2] = (rand() % 2 + 1) * 2;  // randomly set the value to 2 or 4, but different from the first tile
 }
 
+void clearBoard() {
+    for (int i = 0; i < ROW; i++) {
+        for (int j = 0; j < COL; j++) {
+            board[i][j] = 0;
+        }
+    }
+}
+
+
 void addPiece() {
     // generate a random position
     int r, c;
@@ -235,10 +244,16 @@ void playGame(){
         }
         system("cls");
         printBoard();                 
+        if (high_score < score) {
+            high_score = score;             
         }
         // check for game over
         if (check_game_over()) {
             cout << "Game over!" << score << endl;
+            if (score > high_score) {
+                    high_score = score;
+                    cout << "New high score: " << high_score << endl;
+                }
             break;
         }
     }
@@ -263,5 +278,25 @@ int main(){
 	        cout << "Invalid input, please enter 'a' or 'b'.\n";
 	   	}
 	}
+	
+	char askagain;
+    while (true) {
+    	cout << "Play again? (y/n): ";
+        cin >> askagain;
+        if (askagain == 'y' || askagain == 'Y') {
+            // Reset game variables and game board
+            clearBoard();
+            score = 0;
+            playGame();
+            
+        } else if (askagain == 'n' || askagain == 'N') {
+        	cout << "High score: " << high_score << endl;
+            cout<< "Thank you for playing the game(RANG BAAZ).";
+            break;
+        } else {
+            cout << "Invalid input. Please enter 'y' or 'n'.\n";
+            continue;
+        }
+    }
     return 0;
 }

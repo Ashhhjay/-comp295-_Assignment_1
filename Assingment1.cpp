@@ -159,11 +159,11 @@ void leftmove() {
     }
 }
 
-void leftmove() {
+void rightmove() {
     bool moved = false;
     for (int i = 0; i < ROW; i++) {
-        int lastCol = 0;
-        for (int j = 1; j < COL; j++) {
+        int lastCol = COL-1;
+        for (int j = COL-2; j >= 0; j--) {
             if (board[i][j] != 0) {
                 if (board[i][lastCol] == 0) {
                     board[i][lastCol] += board[i][j];
@@ -176,7 +176,7 @@ void leftmove() {
                     moved = true;
                     score += board[i][lastCol];
                 } else {
-                    lastCol++;
+                    lastCol--;
                     board[i][lastCol] = board[i][j];
                     if (j != lastCol) {
                         board[i][j] = 0;

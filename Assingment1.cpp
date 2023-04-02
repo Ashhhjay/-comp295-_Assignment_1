@@ -113,6 +113,38 @@ void downmove() {
     }
 }
 
+void leftmove() {
+    bool moved = false;
+    for (int i = 0; i < ROW; i++) {
+        int lastCol = 0;
+        for (int j = 1; j < COL; j++) {
+            if (board[i][j] != 0) {
+                if (board[i][lastCol] == 0) {
+                    board[i][lastCol] += board[i][j];
+                    board[i][j] = 0;
+                    moved = true;
+                }
+                else if (board[i][lastCol] == board[i][j]) {
+                    board[i][lastCol] += board[i][j];
+                    board[i][j] = 0;
+                    moved = true;
+                    score += board[i][lastCol];
+                } else {
+                    lastCol++;
+                    board[i][lastCol] = board[i][j];
+                    if (j != lastCol) {
+                        board[i][j] = 0;
+                        moved = true;
+                    }
+                }
+            }
+        }
+    }
+    if (moved) {
+        addPiece();
+    }
+}
+
 
 int main(){
 	initializeBoard();
@@ -124,6 +156,7 @@ int main(){
             upmove();
         } else if (move == 's' || move == 'S') {
             downmove();
-    	}
+    	} else if (move == 'a' || move == 'A') {
+            leftmove();
     }
 }
